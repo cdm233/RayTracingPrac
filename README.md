@@ -17,4 +17,4 @@ Close up difference comparison:
 The anti aliasing is done by emitting multiple dispersed rays into different directions from the same origin and then summing them up. The performance liability was moderate: runtime 52s
 
 # May 14 Update
-This update added multi-threading support to renderer, restrctured code, and changed the image output logic. Now the same operation as before, which had a run time of 52 seconds, is not 5.42 seconds.
+This update added multi-threading support to renderer, restrctured code, and changed the image output logic. Now the previous render, which had a run time of 52 seconds, is now 5.42 seconds.
