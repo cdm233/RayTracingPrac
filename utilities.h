@@ -1,18 +1,23 @@
 #pragma once
-#include <cstdlib>
-#include <vector>
-#include <memory>
-#include <limits>
+#include <chrono>
 #include <cmath>
+#include <cstdlib>
+#include <limits>
+#include <memory>
+#include <numeric>
 #include <random>
+#include <vector>
 
-
+#include "hittableObj.h"
 #include "ray.h"
 #include "vec3.h"
-#include "hittableObj.h"
 
+using std::cerr;
+using std::cout;
+using std::endl;
 using std::make_shared;
 using std::shared_ptr;
+using std::string;
 using std::vector;
 
 const double infinity = std::numeric_limits<double>::infinity();
@@ -28,11 +33,11 @@ inline double random_double() {
     return distribution(generator);
 }
 
-inline double limit(double val, double min, double max){
-    if(val < min){
+inline double limit(double val, double min, double max) {
+    if (val < min) {
         return min;
     }
-    if(val > max){
+    if (val > max) {
         return max;
     }
 
