@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
     } else if (argc == 3) {
         imageHeight = atoi(argv[1]);
         antiAliasingConf = atoi(argv[2]);
+        antiAliasingConf = antiAliasingConf == 0 ? 1 : antiAliasingConf;
     } else {
         imageHeight = 540;
     }
