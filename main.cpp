@@ -1,5 +1,4 @@
 #include <omp.h>
-
 #include <atomic>
 #include <chrono>
 #include <fstream>
@@ -11,106 +10,90 @@
 #include <vector>
 
 #include "camera.h"
-#include "color.h"
-#include "hittableList.h"
+#include "renderer.h"
 #include "sphere.h"
-#include "utilities.h"
 
 // image
 int imageWidth;
 int imageHeight;
 double aspectRatio = 16.0 / 9.0;
 int antiAliasingConf = 10;
+string imageName = "out";
 
 // Camera
-camera cam;
+camera *cam = nullptr;
 
-// world
+// World
 hittableList world;
 
-void antiAnliasing(color &color, int num, int i, int j);
 
-color rayColor(ray r, hittableList &world) {
-    hitRecord temp;
-    if (world.hit(r, 0, infinity, temp)) {
-        return 0.5 * color(temp.normal.x() + 1, temp.normal.y() + 1, temp.normal.z() + 1);
-    }
-
-    auto unitDir = unit_vector(r.direction);
-
-    // the more tiled up, the more blue it gets
-    // y ranges from -1 to 1, thus we offset it by 1.0 and normalize it back by 0.5
-    auto modifier = (unitDir.y() + 1.0) * 0.5;
-
-    // linear blend between white and blue
-    return (1.0 - modifier) * color(1.0, 1.0, 1.0) + color(0.5, 0.7, 1.0) * modifier;
-}
+// Renderer
+renderer *g = nullptr;
 
 int main(int argc, char *argv[]) {
+    /**
+     * argument list:
+     *      NULL ImageHeight
+     *      NULL ImageHeight AntiAliasingConf
+     *      NULL ImageHeight ImageWidth AntiAliasingConf
+     *      NULL ImageHeight ImageWidth AntiAliasingConf ImageName
+     *
+     */
     // argument list: NULL ImageHeight AntiAliasingConf
+
     if (argc == 2) {
         imageHeight = atoi(argv[1]);
+        imageWidth = imageHeight * aspectRatio;
     } else if (argc == 3) {
         imageHeight = atoi(argv[1]);
+        imageWidth = imageHeight * aspectRatio;
         antiAliasingConf = atoi(argv[2]);
         antiAliasingConf = antiAliasingConf == 0 ? 1 : antiAliasingConf;
+    } else if (argc == 4) {
+        imageHeight = atoi(argv[1]);
+        imageWidth = atoi(argv[2]);
+        antiAliasingConf = atoi(argv[3]);
+        antiAliasingConf = antiAliasingConf == 0 ? 1 : antiAliasingConf;
+        aspectRatio = imageWidth / imageHeight;
+    } else if (argc == 5) {
+        imageHeight = atoi(argv[1]);
+        imageWidth = atoi(argv[2]);
+        antiAliasingConf = atoi(argv[3]);
+        imageName = argv[4];
+        antiAliasingConf = antiAliasingConf == 0 ? 1 : antiAliasingConf;
+        aspectRatio = imageWidth / imageHeight;
     } else {
         imageHeight = 540;
+        imageWidth = imageHeight * aspectRatio;
     }
+    cout << imageWidth << " " << imageHeight << " " << antiAliasingConf << endl;
 
-    imageWidth = imageHeight * aspectRatio;
+    g = new renderer(imageWidth, imageHeight, antiAliasingConf);
+    cam = new camera(imageWidth, imageHeight);
 
     // Create world
     world.add(make_shared<sphere>(point3d(0, 0, -1), 0.5));
-    world.add(make_shared<sphere>(point3d(0, -100.5, -1), 100));
+    world.add(make_shared<sphere>(point3d(-1, 0, -1), 0.5));
 
-    // Open image file
-    std::ofstream outImage;
-    outImage.open("out.ppm");
+    // world.add(make_shared<sphere>(point3d(0.7, 0.7, -1), 0.3));
+    // world.add(make_shared<sphere>(point3d(-0.7, 0.7, -1), 0.3));
+    // world.add(make_shared<sphere>(point3d(0, -100.5, -1), 100));
 
-    outImage << "P3\n"
-             << imageWidth << ' ' << imageHeight << "\n255\n";
 
     // Start timer
     auto start = std::chrono::high_resolution_clock::now();
 
     // Render
-    vector<int> progress(omp_get_max_threads(), 0);
-    vector<string> parallelS(omp_get_max_threads());
-    cerr << "Render begins, using " << parallelS.size() << " threads..." << std::endl;
-#pragma omp parallel for
-    // i is for horizontal, j is for vertical
-    for (int j = imageHeight - 1; j >= 0; --j) {
-        int threadId = j / ((imageHeight) / omp_get_max_threads());
-        int sum = std::accumulate(progress.begin(), progress.end(), 0);
-        cerr << std::setprecision(3) << "\33[2K\r" << ((double)sum / (double)(imageHeight - 1)) * 100 << ' ' << '%' << "done";
+    cerr << "Render begins, using " << g->threadCount << " threads...\n" << std::endl;
 
-        progress[threadId]++;
-        for (int i = 0; i < imageWidth; ++i) {
-            color pixelColor(0, 0, 0);
-            for (int c = 0; c < antiAliasingConf; c++) {
-                double horizontalStep = (double)(i + random_double()) / (imageWidth - 1);
-                double verticalStep = (double)(j + random_double()) / (imageHeight - 1);
-                auto r = cam.getRay(horizontalStep, verticalStep);
-
-                pixelColor += rayColor(r, world);
-            }
-            write_color(parallelS[threadId], pixelColor, antiAliasingConf);
-        }
-    }
+    g->render();
 
     cerr << "\nRender finished, writing image..." << std::endl;
 
-    // write to image
-    for (auto it = parallelS.rbegin(); it != parallelS.rend(); it++) {
-        outImage << *it;
-    }
-
-    // close file
-    outImage.close();
+    g->exportImage(0, imageName);
 
     auto end = std::chrono::high_resolution_clock::now();
     auto wall = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
 
-    cerr << "Program Finished. Run time: " << wall.count() << "\n";
+    cerr << "Program Finished. Run time: " << wall.count() << "s\n";
 }

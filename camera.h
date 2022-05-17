@@ -3,8 +3,8 @@
 
 class camera {
    public:
-    camera() {
-        const double aspectRatio = 9.0 / 16.0;
+    camera(int width, int height) {
+        const double aspectRatio = (double) height / (double) width;
         const double viewPortHeight = 2.0;
         const double viewPortWidth = viewPortHeight / aspectRatio;
         const double focalLength = 1.0;

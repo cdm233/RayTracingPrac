@@ -1,16 +1,20 @@
 #pragma once
+#include <atomic>
 #include <chrono>
 #include <cmath>
 #include <cstdlib>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <limits>
 #include <memory>
 #include <numeric>
 #include <random>
+#include <thread>
+#include <utility>
 #include <vector>
 
 #include "hittableObj.h"
-#include "ray.h"
-#include "vec3.h"
 
 using std::cerr;
 using std::cout;
