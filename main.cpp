@@ -90,10 +90,12 @@ int main(int argc, char *argv[]) {
 
     cerr << "\nRender finished, writing image..." << std::endl;
 
-    g->exportImage(0, imageName);
+    g->exportImage(1, imageName);
 
     auto end = std::chrono::high_resolution_clock::now();
     auto wall = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
 
     cerr << "Program Finished. Run time: " << wall.count() << "s\n";
+
+    return 0;
 }
