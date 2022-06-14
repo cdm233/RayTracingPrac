@@ -16,5 +16,10 @@ Close up difference comparison:
 
 The anti aliasing is done by emitting multiple dispersed rays into different directions from the same origin and then summing them up. The performance liability was moderate: runtime 52s
 
-# May 14 Update
+# Update 1
 This update added multi-threading support to renderer, restrctured code, and changed the image output logic. Now the previous render, which had a run time of 52 seconds, is now 5.42 seconds.
+
+# Update 2
+This updates adds PNG exporting support, it also includes the command to compile the program in a .txt file.
+The command is:
+gcc -O3 main.cpp ./src/*.cpp -I ./src/ -fopenmp -lstdc++ -o main.exe 
