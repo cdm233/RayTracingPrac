@@ -20,6 +20,10 @@ The anti aliasing is done by emitting multiple dispersed rays into different dir
 This update added multi-threading support to renderer, restrctured code, and changed the image output logic. Now the previous render, which had a run time of 52 seconds, is now 5.42 seconds.
 
 # Update 2
-This updates adds PNG exporting support, it also includes the command to compile the program in a .txt file.
+This update adds PNG exporting support, it also includes the command to compile the program in a .txt file.
 The command is:
 gcc -O3 main.cpp ./src/*.cpp -I ./src/ -fopenmp -lstdc++ -o main.exe 
+
+# Update 3
+This update adds setting loader so no need to enter settings like image width or image name in the terminal, just pre-edit them in settings.ini.
+Fixed a bug due to type conversion that will overflow the multi-thread image buffer.
