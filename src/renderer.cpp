@@ -18,7 +18,8 @@ void renderer::render() {
 // i is for horizontal, j is for vertical
 #pragma omp parallel for
     for (int j = imageHeight - 1; j >= 0; --j) {
-        int threadId = j / ((imageHeight) / threadCount);
+        double threadDivide = ((double) (imageHeight) / (double) (threadCount));
+        int threadId = j / threadDivide;
         if (progress[threadId] == ((imageHeight) / threadCount) - 1) {
 #pragma omp critical
             {
@@ -30,6 +31,7 @@ void renderer::render() {
         // double ratio = ((double)sum / (double)(imageHeight - 1)) * 100;
         // cerr << std::setprecision(3) << "\33[2K\r" << ratio << '%' << " done";
 
+        imageBuffer[threadId] += "what";
         progress[threadId]++;
         for (int i = 0; i < imageWidth; ++i) {
             color pixelColor(0, 0, 0);
@@ -89,9 +91,9 @@ void renderer::write_color(std::string &s, color pixel_color, int sampleNum, vec
     auto castedG = static_cast<int>(255.999 * limit(g, 0.0, 0.999999));
     auto castedB = static_cast<int>(255.999 * limit(b, 0.0, 0.999999));
 
-    s += std::to_string(castedR) + " " +
-         std::to_string(castedG) + " " +
-         std::to_string(castedB);
+    s += std::to_string(castedR) + " ";
+    s += std::to_string(castedG) + " ";
+    s += std::to_string(castedB);
     s += "\n";
 
     pixelBuffer.push_back(castedR);
