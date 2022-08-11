@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include"renderer.h"
 
 extern camera *cam;
 extern hittableList world;
@@ -12,9 +12,11 @@ renderer::renderer(int width, int height, int anti) {
     totalProgress = 0;
     imageBuffer.resize(threadCount);
     imagePixelBuffer.resize(threadCount);
+    progressPi = vector<int>(threadCount, 0);
+    rendered = false;
 };
 
-void renderer::render() {
+bool renderer::render() {
 // i is for horizontal, j is for vertical
 #pragma omp parallel for
     for (int j = imageHeight - 1; j >= 0; --j) {
@@ -45,8 +47,50 @@ void renderer::render() {
                 pixelColor += temp;
             }
             write_color(imageBuffer[threadId], pixelColor, antiAliasingConf, imagePixelBuffer[threadId]);
+            progressPi[threadId]++;
         }
     }
+    rendered = true;
+    return true;
+}
+
+bool renderer::renderByThread(int threadId) {
+    std::cerr << "Rendering Batch " << threadId << std::endl;
+    int startingPos = ((double)(threadId) / (double)this->threadCount) * this->imageHeight;
+    int endingPos = startingPos + ((double) (1) / (double) this->threadCount) * this->imageHeight - 1;
+    std::cerr << "  Starting Pos: " << startingPos << ". Ending Pos: " << endingPos << std::endl;
+    for (int j = startingPos; j <= endingPos; j++) {
+        double threadDivide = ((double)(imageHeight) / (double)(threadCount));
+        if (progress[threadId] == ((imageHeight) / threadCount) - 1) {
+            {
+                totalProgress++;
+                cerr << "Batch " << threadId << " done! " << threadCount - totalProgress << " batches left..." << endl;
+            }
+        }
+
+        imageBuffer[threadId] += "what";
+        progress[threadId]++;
+        for (int i = 0; i < imageWidth; ++i) {
+            color pixelColor(0, 0, 0);
+            for (int c = 0; c < antiAliasingConf; c++) {
+                double horizontalStep = (double)(i + random_double()) / (imageWidth - 1);
+                double verticalStep = (double)(j + random_double()) / (imageHeight - 1);
+                auto r = cam->getRay(horizontalStep, verticalStep);
+
+                auto temp = rayColor(r, world);
+                // cout << r.direction  << endl;
+                pixelColor += temp;
+            }
+            write_color(imageBuffer[threadId], pixelColor, antiAliasingConf, imagePixelBuffer[threadId]);
+            progressPi[threadId]++;
+        }
+    }
+
+    if (totalProgress == threadCount) {
+        rendered = true;
+    }
+
+    return true;
 }
 
 color renderer::rayColor(ray r, hittableList &world) {
@@ -139,5 +183,23 @@ bool renderer::exportPNG() {
         std::cout << "encoder error " << err << ": " << lodepng_error_text(err) << std::endl;
         return false;
     }
+    return true;
+}
+
+bool renderer::clearImageData() {
+    imageHeight = 0;
+    imageWidth = 0;
+    totalProgress = 0;
+    imageName = "";
+    rendered = false;
+
+    progress.clear();
+    progressPi.clear();
+
+    // ppm image buffer
+    imageBuffer.clear();
+    // plain pixel buffer
+    imagePixelBuffer.clear();
+
     return true;
 }

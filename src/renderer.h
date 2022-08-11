@@ -14,8 +14,10 @@ class renderer {
     int antiAliasingConf;
     int threadCount;
     double totalProgress;
+    bool rendered;
     string imageName;
     vector<int> progress;
+    vector<int> progressPi;
     // ppm image buffer
     vector<string> imageBuffer;
     // plain pixel buffer
@@ -23,9 +25,12 @@ class renderer {
 
     color rayColor(ray r, hittableList &world);
     renderer(int width, int height, int anti);
-    void render();
+    bool render();
+    bool renderByThread(int threadId);
     void write_color(std::string &s, color pixel_color, int sampleNum, vector<unsigned char> &pixelBuffer);
     bool exportImage(int type, string name);
     bool exportPPM();
     bool exportPNG();
+
+    bool clearImageData();
 };

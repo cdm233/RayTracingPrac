@@ -1,0 +1,44 @@
+﻿  main.cpp
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\main.cpp(10,10): fatal error C1083: Cannot open include file: 'imgui.h': No such file or directory
+  hittableList.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx10.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_dx12.cpp
+  imgui_impl_dx9.cpp
+  imgui_impl_win32.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  lodepng.cpp
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(687,54): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(705,35): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(706,39): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(729,37): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(746,38): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(3720,78): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(4723,33): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(4992,60): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(4997,83): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(4998,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(4999,83): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5000,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5001,83): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5002,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5003,78): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5198,3): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5222,7): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5256,62): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5273,3): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5295,57): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5326,57): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5439,57): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\lodepng.cpp(5553,33): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+  renderer.cpp
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\renderer.cpp(24,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\renderer.cpp(59,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\renderer.cpp(60,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  settingLoader.cpp
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\src\settingLoader.cpp(17,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  sphere.cpp

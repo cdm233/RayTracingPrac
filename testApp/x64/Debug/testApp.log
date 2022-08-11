@@ -1,0 +1,6 @@
+﻿  main.cpp
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\main.cpp(165,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\main.cpp(217,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\main.cpp(260,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\testApp\main.cpp(260,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  testApp.vcxproj -> C:\Users\cdeme\Desktop\Programs\2022\Application\testApp\x64\Debug\testApp.exe
