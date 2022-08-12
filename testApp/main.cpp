@@ -7,9 +7,9 @@
 // This define is set in the example .vcxproj file and need to be replicated in your app or by adding it to your imconfig.h file.
 
 
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx12.h"
+#include "src/imgui.h"
+#include "src/imgui_impl_win32.h"
+#include "src/imgui_impl_dx12.h"
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <tchar.h>
